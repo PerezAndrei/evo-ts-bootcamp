@@ -1,0 +1,1 @@
+export const COMPOSE_RANDOM_SET_TIME = 5000;

@@ -1,3 +1,3 @@
 export function Header() {
-    return (<h1>Hello Bubble Sort</h1>);
+    return (<h4>Bubble Sort Visualization</h4>);
 }

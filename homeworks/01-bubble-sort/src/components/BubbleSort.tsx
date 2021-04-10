@@ -1,4 +1,11 @@
+import { getRandomSet } from '../services/randomService';
 import { Header } from './Header'
+
+getRandomSet().then(result => {
+    console.log('get rendom set', result)
+}).catch(error => {
+    console.error(error);
+});
 
 export function BubleSort() {
     return (
