@@ -32,7 +32,8 @@ export class BubleSort extends React.Component<BubleSortProps, BubleSortState> {
                         onStatusChanged={this.handleStatus} />
                 </main>
                 <footer>
-                    <ControlPanel />
+                    <ControlPanel status={status}
+                        onStatusChanged={this.handleStatus} />
                     <Status status={status}
                         onStatusChanged={this.handleStatus} />
                 </footer>
