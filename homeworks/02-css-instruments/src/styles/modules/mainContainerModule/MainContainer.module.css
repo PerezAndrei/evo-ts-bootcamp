@@ -1,0 +1,8 @@
+.mainContainer {
+    display: grid;
+    height: 100%;
+    grid-template: 
+    [row1-start] "header" 50px [row1-end]
+    [row2-start] "content" 1fr [row2-end]
+    / 1fr;
+}
