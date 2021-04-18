@@ -16,7 +16,8 @@ const StyledHeader = styled.header({
 export function Header(){
     return (
         <div className={styles.header}>
-            <h4>Welcome To My Gallery</h4>
+            <h4>The unsplash gallery</h4>
+            <div className={styles.separator}></div>
         </div>
     )
 }

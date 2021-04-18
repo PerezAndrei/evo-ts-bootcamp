@@ -1,0 +1,16 @@
+.search{
+    display: grid;
+    grid-gap: 10px;
+}
+
+@media (max-width: 991.98px) {  
+    .search{
+        grid-template: 1fr 1fr / 1fr;
+    }
+    
+}
+@media (min-width: 992px) { 
+    .search{
+        grid-template: 1fr / 4fr 1fr;
+    }
+ }
