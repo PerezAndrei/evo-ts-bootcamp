@@ -23,7 +23,7 @@ export class GalleryPagination extends React.Component<GalleryPaginationProps, G
     }
 
     handleClick: (event: React.MouseEvent<HTMLElement>, key: number) => void = (event, key) => {
-        console.log({event, key});
+        //({event, key});
         this.props.onPageClick(key);
     }
 

@@ -12,7 +12,7 @@ class GalleryService implements IGalleryService {
     }
 
     search: (query?: string, page?: number) => Promise<ApiResponse<Photos>> = (query = defaultQuery, page = 1) => {
-        console.log('search', {query, page});
+        //console.log('search', {query, page});
         return this.api.search.getPhotos({query: query, orientation: 'landscape', page: page, perPage: 30})
     }
 }

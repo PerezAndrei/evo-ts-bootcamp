@@ -35,7 +35,7 @@ export class Content extends React.Component<{}, ContentState>{
         let currentPage = page || this.state.page
         galleryService.search(this.state.query, currentPage).then(result => {
             if (result.type === "success") {
-                console.log(result);
+                //console.log(result);
                 this.setState(prevState => ({
                     items: result.response.results,
                     query: prevState.query || defaultQuery
