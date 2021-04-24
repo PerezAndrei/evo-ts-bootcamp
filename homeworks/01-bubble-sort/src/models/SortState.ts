@@ -48,6 +48,6 @@ export class SortState implements ISortState {
     }
 }
 
-export let getSortState: IGetSortState = (length) => {
+export const getSortState: IGetSortState = (length) => {
     return new SortState(length);
 }

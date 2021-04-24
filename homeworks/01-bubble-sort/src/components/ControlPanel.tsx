@@ -6,7 +6,6 @@ import { ControlButtonClick, ControlPanelProps, ControlPanelState } from "../typ
 export class ControlPanel extends React.Component<ControlPanelProps, ControlPanelState> {
     constructor(props: ControlPanelProps) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick: ControlButtonClick = (status) => {
@@ -14,10 +13,10 @@ export class ControlPanel extends React.Component<ControlPanelProps, ControlPane
     }
 
     render() {
-        let { status } = this.props;
+        const { status } = this.props;
         return (
             <div className="control-panel">
-                <ButtonGroup aria-label="Basic example">
+                <ButtonGroup>
                     <Button
                         onClick={() => { this.handleClick(GameStatus.Reset) }}
                         variant="primary"

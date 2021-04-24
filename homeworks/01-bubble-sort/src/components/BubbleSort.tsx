@@ -21,12 +21,10 @@ export class BubleSort extends React.Component<BubleSortProps, BubleSortState> {
     }
 
     render() {
-        let { status } = this.state;
+        const { status } = this.state;
         return (
             <div className="bs-layout">
-                <header>
-                    <Header></Header>
-                </header>
+                <Header></Header>
                 <main>
                     <Items status={status}
                         onStatusChanged={this.handleStatus} />

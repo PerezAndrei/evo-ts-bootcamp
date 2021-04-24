@@ -1,3 +1,4 @@
+import { constants } from "node:os";
 import React from "react";
 import { TIMEOUT_TIME } from "../helpers/constants";
 import { GameStatus, SortStateStatus } from "../helpers/enums";
@@ -9,7 +10,8 @@ import { ItemsProps, ItemsState } from "../types/componentTypes";
 import { Item } from "./Item";
 
 export class Items extends React.Component<ItemsProps, ItemsState> {
-    private _sortIntervalId: NodeJS.Timeout | null = null;
+    private _sortTimeoutId: number | null = null;
+    private _performTimeoutId: number | null = null;
     private _sortState: ISortState
 
     constructor(props: ItemsProps) {
@@ -27,6 +29,11 @@ export class Items extends React.Component<ItemsProps, ItemsState> {
 
     componentDidUpdate(prevProps: ItemsProps) {
         this.validateStatus(prevProps.status);
+    }
+
+    componentWillUnmount(){
+        this._sortTimeoutId && clearTimeout(this._sortTimeoutId);
+        this._performTimeoutId && clearTimeout(this._performTimeoutId);
     }
 
     validateStatus(prevStatus: GameStatus): void {
@@ -64,7 +71,7 @@ export class Items extends React.Component<ItemsProps, ItemsState> {
 
     updateStatus(status: GameStatus): void {
         if (status === GameStatus.ReadyToStart || status === GameStatus.Pause) {
-            setTimeout(() => {
+            this._sortTimeoutId = window.setTimeout(() => {
                 this.props.onStatusChanged(status);
             }, TIMEOUT_TIME);
         }
@@ -74,7 +81,7 @@ export class Items extends React.Component<ItemsProps, ItemsState> {
     }
 
     performSort(): void {
-        setTimeout(() => {
+        this._performTimeoutId = window.setTimeout(() => {
             if (this._sortState.status === SortStateStatus.Running) {
                 this.sort();
                 this._sortState.setNext();
@@ -90,17 +97,17 @@ export class Items extends React.Component<ItemsProps, ItemsState> {
     }
 
     sort(): void {
-        let randomSet = this.state.randomSet;
-        let index = this._sortState.stepIndex;
-        if (randomSet[index] > randomSet[index + 1]) {
+        const { randomSet } = this.state;
+        const { stepIndex } = this._sortState;
+        if (randomSet[stepIndex] > randomSet[stepIndex + 1]) {
             this.setState({
-                randomSet: swapItems(randomSet, index),
-                currentIndex: index + 1
+                randomSet: swapItems(randomSet, stepIndex),
+                currentIndex: stepIndex + 1
             });
         }
         else {
             this.setState({
-                currentIndex: index + 1
+                currentIndex: stepIndex + 1
             });
         }
     }
@@ -121,7 +128,7 @@ export class Items extends React.Component<ItemsProps, ItemsState> {
     }
 
     render() {
-        let { randomSet, currentIndex } = this.state;
+        const { randomSet, currentIndex } = this.state;
         return (
             <div className="items">
                 {randomSet.map((element, index) =>
