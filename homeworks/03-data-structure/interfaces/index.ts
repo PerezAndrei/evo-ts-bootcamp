@@ -1,3 +1,5 @@
+import { TreeTraverse } from "../enums";
+
 export interface ITreeNode<T> {
     value: T;
     left: ITreeNode<T>;
@@ -8,6 +10,7 @@ export interface IBinaryTree<T> {
     treeNode: ITreeNode<T>;
     setTree(treeNode: ITreeNode<T>): this;
     getColumn(columnOrder: number): Array<T>;
+    traverse(traverse: TreeTraverse): T[];
     insert(value: T): void;
     print(): void;
 }

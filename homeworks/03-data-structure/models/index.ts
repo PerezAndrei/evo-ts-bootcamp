@@ -1,3 +1,5 @@
+import { TreeTraverse } from "../enums";
+import { assertNever } from "../helpers";
 import { IBinaryTree, ITreeNode, IQueue } from "../interfaces";
 
 export class TreeNode<T> implements ITreeNode<T> {
@@ -28,7 +30,6 @@ export class BinaryTree<T> implements IBinaryTree<T>{
     }
 
     insert(value: T): void {
-        console.log('insert', value);
         let treeNodeQueue: IQueue<TreeNode<T>> = new Queue();
         treeNodeQueue.enqueue(this.treeNode);
 
@@ -52,6 +53,24 @@ export class BinaryTree<T> implements IBinaryTree<T>{
                 treeNodeQueue.enqueue(treeNode.right);
             }
         }
+    }
+
+    traverse(traverse: TreeTraverse): T[] {
+        const values: T[] = [];
+        switch (traverse) {
+            case TreeTraverse.InOrder:
+                break;
+            case TreeTraverse.PreOrder:
+                break;
+            case TreeTraverse.PostOrder:
+                break;
+            case TreeTraverse.LevelOrder:
+                break;
+            default:
+                assertNever(traverse);
+
+        }
+        return values;
     }
 
     print(): void {
