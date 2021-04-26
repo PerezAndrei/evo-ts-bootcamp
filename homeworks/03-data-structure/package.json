@@ -1,0 +1,12 @@
+{
+  "name": "03-data-structure",
+  "version": "1.0.0",
+  "description": "hw",
+  "main": "index.ts",
+  "author": "Andrei Perez",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  }
+}
