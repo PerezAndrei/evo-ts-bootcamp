@@ -14,14 +14,14 @@ export class TreeNode<T> implements ITreeNode<T> {
 }
 
 export class BinaryTree<T> implements IBinaryTree<T>{
-    treeNode;
+    treeNodeRoot;
 
     constructor(treeNode: ITreeNode<T>) {
-        this.treeNode = treeNode;
+        this.treeNodeRoot = treeNode;
     }
 
     setTree(treeNode: ITreeNode<T>): this {
-        this.treeNode = treeNode;
+        this.treeNodeRoot = treeNode;
         return this;
     }
 
@@ -31,7 +31,7 @@ export class BinaryTree<T> implements IBinaryTree<T>{
 
     insert(value: T): void {
         let treeNodeQueue: IQueue<TreeNode<T>> = new Queue();
-        treeNodeQueue.enqueue(this.treeNode);
+        treeNodeQueue.enqueue(this.treeNodeRoot);
 
         while (!treeNodeQueue.empty) {
             console.log('while');
@@ -57,12 +57,16 @@ export class BinaryTree<T> implements IBinaryTree<T>{
 
     traverse(traverse: TreeTraverse): T[] {
         const values: T[] = [];
+
         switch (traverse) {
             case TreeTraverse.InOrder:
+                this.inOrderTraverse(values, this.treeNodeRoot);
                 break;
             case TreeTraverse.PreOrder:
+                this.preOrderTraverse(values, this.treeNodeRoot);
                 break;
             case TreeTraverse.PostOrder:
+                this.postOrderTraverse(values, this.treeNodeRoot);
                 break;
             case TreeTraverse.LevelOrder:
                 break;
@@ -70,11 +74,42 @@ export class BinaryTree<T> implements IBinaryTree<T>{
                 assertNever(traverse);
 
         }
+
         return values;
     }
 
+    private inOrderTraverse: (values: T[], treeNode: ITreeNode<T>) => void = (values, treeNode) => {
+        if (treeNode === null) {
+            return;
+        }
+
+        this.postOrderTraverse(values, treeNode.left);
+        values.push(treeNode.value);
+        this.postOrderTraverse(values, treeNode.right);       
+    }
+
+    private preOrderTraverse: (values: T[], treeNode: ITreeNode<T>) => void = (values, treeNode) => {
+        if (treeNode === null) {
+            return;
+        }
+
+        values.push(treeNode.value);
+        this.postOrderTraverse(values, treeNode.left);        
+        this.postOrderTraverse(values, treeNode.right);       
+    }
+
+    private postOrderTraverse: (values: T[], treeNode: ITreeNode<T>) => void = (values, treeNode) => {
+        if (treeNode === null) {
+            return;
+        }
+
+        this.postOrderTraverse(values, treeNode.left);
+        this.postOrderTraverse(values, treeNode.right);
+        values.push(treeNode.value);
+    }
+
     print(): void {
-        this.printTree([this.treeNode]);
+        this.printTree([this.treeNodeRoot]);
     }
 
     private printTree(treeNodes: ITreeNode<T>[]) {

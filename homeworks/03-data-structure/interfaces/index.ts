@@ -7,7 +7,7 @@ export interface ITreeNode<T> {
 }
 
 export interface IBinaryTree<T> {
-    treeNode: ITreeNode<T>;
+    treeNodeRoot: ITreeNode<T>;
     setTree(treeNode: ITreeNode<T>): this;
     getColumn(columnOrder: number): Array<T>;
     traverse(traverse: TreeTraverse): T[];
