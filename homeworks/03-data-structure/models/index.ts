@@ -69,6 +69,7 @@ export class BinaryTree<T> implements IBinaryTree<T>{
                 this.postOrderTraverse(values, this.treeNodeRoot);
                 break;
             case TreeTraverse.LevelOrder:
+                this.levelOrderTraverse(values, [this.treeNodeRoot]);
                 break;
             default:
                 assertNever(traverse);
@@ -85,7 +86,7 @@ export class BinaryTree<T> implements IBinaryTree<T>{
 
         this.postOrderTraverse(values, treeNode.left);
         values.push(treeNode.value);
-        this.postOrderTraverse(values, treeNode.right);       
+        this.postOrderTraverse(values, treeNode.right);
     }
 
     private preOrderTraverse: (values: T[], treeNode: ITreeNode<T>) => void = (values, treeNode) => {
@@ -94,8 +95,8 @@ export class BinaryTree<T> implements IBinaryTree<T>{
         }
 
         values.push(treeNode.value);
-        this.postOrderTraverse(values, treeNode.left);        
-        this.postOrderTraverse(values, treeNode.right);       
+        this.postOrderTraverse(values, treeNode.left);
+        this.postOrderTraverse(values, treeNode.right);
     }
 
     private postOrderTraverse: (values: T[], treeNode: ITreeNode<T>) => void = (values, treeNode) => {
@@ -106,6 +107,22 @@ export class BinaryTree<T> implements IBinaryTree<T>{
         this.postOrderTraverse(values, treeNode.left);
         this.postOrderTraverse(values, treeNode.right);
         values.push(treeNode.value);
+    }
+
+    private levelOrderTraverse(values: T[], treeNodes: ITreeNode<T>[]) {
+        if (treeNodes.length) {
+            const childs: ITreeNode<T>[] = [];
+            const currentValues = treeNodes.filter(n => n?.value).map(n => n.value);
+            currentValues.forEach(v => values.push(v));
+            treeNodes.forEach(n => {
+                if (n == null) {
+                    return;
+                }
+                childs.push(n.left);
+                childs.push(n.right);
+            });
+            this.printTree(childs);
+        }
     }
 
     print(): void {
