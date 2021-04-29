@@ -26,7 +26,13 @@ export class BinaryTree<T> implements IBinaryTree<T>{
     }
 
     getColumn(columnOrder: number): T[] {
-        throw new Error("Method not implemented.");
+        const res: T[] = [];
+        const treeNodeHorDist = new TreeNodeHorDist();
+        this.calcHorizontalDistance(this.treeNodeRoot, treeNodeHorDist, 0);
+        if (columnOrder < treeNodeHorDist.min || columnOrder > treeNodeHorDist.max) {
+            throw new Error(`Column order: '${columnOrder}' should be greater or equal: '${treeNodeHorDist.min}' or less or equal: '${treeNodeHorDist.max}'`)
+        }
+        return res;
     }
 
     insert(value: T): void {
@@ -77,7 +83,7 @@ export class BinaryTree<T> implements IBinaryTree<T>{
 
         return values;
     }
-    
+
     print(): void {
         this.printTree([this.treeNodeRoot]);
     }
@@ -126,7 +132,7 @@ export class BinaryTree<T> implements IBinaryTree<T>{
             });
             this.printTree(childs);
         }
-    }    
+    }
 
     private printTree(treeNodes: ITreeNode<T>[]) {
         if (treeNodes.length) {
@@ -144,8 +150,21 @@ export class BinaryTree<T> implements IBinaryTree<T>{
         }
     }
 
-    private calcHorzontalDistance(treeNode: ITreeNode<T>, treeNodeHorDist: ITreeNodeHorDist, ):void{
+    private calcHorizontalDistance(treeNode: ITreeNode<T>, treeNodeHorDist: ITreeNodeHorDist, horDist: number): void {
+        if (treeNode === null) {
+            return;
+        }
 
+        if (horDist < treeNodeHorDist.min) {
+            treeNodeHorDist.min = horDist;
+        }
+
+        if (horDist > treeNodeHorDist.max) {
+            treeNodeHorDist.max = horDist;
+        }
+
+        this.calcHorizontalDistance(treeNode.left, treeNodeHorDist, horDist - 1);
+        this.calcHorizontalDistance(treeNode.right, treeNodeHorDist, horDist + 1);
     }
 }
 
@@ -185,7 +204,7 @@ export class Queue<T> implements IQueue<T>{
     }
 }
 
-export class TreeNodeHorDist implements ITreeNodeHorDist{
-    min: number;
-    max: number;
+export class TreeNodeHorDist implements ITreeNodeHorDist {
+    min: number = 0;
+    max: number = 0;
 }
