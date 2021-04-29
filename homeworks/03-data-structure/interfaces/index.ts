@@ -22,3 +22,8 @@ export interface IQueue<T> {
     empty: boolean;
     count: number;
 }
+
+export interface ITreeNodeHorDist {
+    min: number;
+    max: number;
+}

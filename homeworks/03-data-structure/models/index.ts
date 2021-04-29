@@ -1,6 +1,6 @@
 import { TreeTraverse } from "../enums";
 import { assertNever } from "../helpers";
-import { IBinaryTree, ITreeNode, IQueue } from "../interfaces";
+import { IBinaryTree, ITreeNode, IQueue, ITreeNodeHorDist } from "../interfaces";
 
 export class TreeNode<T> implements ITreeNode<T> {
     value: T;
@@ -73,10 +73,13 @@ export class BinaryTree<T> implements IBinaryTree<T>{
                 break;
             default:
                 assertNever(traverse);
-
         }
 
         return values;
+    }
+    
+    print(): void {
+        this.printTree([this.treeNodeRoot]);
     }
 
     private inOrderTraverse: (values: T[], treeNode: ITreeNode<T>) => void = (values, treeNode) => {
@@ -123,11 +126,7 @@ export class BinaryTree<T> implements IBinaryTree<T>{
             });
             this.printTree(childs);
         }
-    }
-
-    print(): void {
-        this.printTree([this.treeNodeRoot]);
-    }
+    }    
 
     private printTree(treeNodes: ITreeNode<T>[]) {
         if (treeNodes.length) {
@@ -143,6 +142,10 @@ export class BinaryTree<T> implements IBinaryTree<T>{
             });
             this.printTree(childs);
         }
+    }
+
+    private calcHorzontalDistance(treeNode: ITreeNode<T>, treeNodeHorDist: ITreeNodeHorDist, ):void{
+
     }
 }
 
@@ -180,4 +183,9 @@ export class Queue<T> implements IQueue<T>{
     get empty(): boolean {
         return this.items.length === 0;
     }
+}
+
+export class TreeNodeHorDist implements ITreeNodeHorDist{
+    min: number;
+    max: number;
 }
