@@ -32,6 +32,7 @@ export class BinaryTree<T> implements IBinaryTree<T>{
         if (columnOrder < treeNodeHorDist.min || columnOrder > treeNodeHorDist.max) {
             throw new Error(`Column order: '${columnOrder}' should be greater or equal: '${treeNodeHorDist.min}' or less or equal: '${treeNodeHorDist.max}'`)
         }
+        this.verticaltraverseByColumn(res, this.treeNodeRoot, columnOrder);
         return res;
     }
 
@@ -165,6 +166,23 @@ export class BinaryTree<T> implements IBinaryTree<T>{
 
         this.calcHorizontalDistance(treeNode.left, treeNodeHorDist, horDist - 1);
         this.calcHorizontalDistance(treeNode.right, treeNodeHorDist, horDist + 1);
+    }
+
+    private verticaltraverseByColumn(values: T[],
+        treeNode: ITreeNode<T>,
+        columnOrder: number,
+        currentColumnOrder: number = 0
+    ): void {
+        if (treeNode === null) {
+            return;
+        }
+
+        if (columnOrder === currentColumnOrder) {
+            values.push(treeNode.value);
+        }
+
+        this.verticaltraverseByColumn(values, treeNode.left, columnOrder, currentColumnOrder - 1);
+        this.verticaltraverseByColumn(values, treeNode.right, columnOrder, currentColumnOrder + 1);
     }
 }
 
