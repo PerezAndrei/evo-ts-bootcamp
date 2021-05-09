@@ -98,9 +98,9 @@ export class BinaryTree<T> implements IBinaryTree<T>{
             return;
         }
 
-        this.postOrderTraverse(values, treeNode.left);
+        this.inOrderTraverse(values, treeNode.left);
         values.push(treeNode.value);
-        this.postOrderTraverse(values, treeNode.right);
+        this.inOrderTraverse(values, treeNode.right);
     }
 
     private preOrderTraverse: (values: T[], treeNode?: ITreeNode<T>) => void = (values, treeNode) => {
@@ -109,8 +109,8 @@ export class BinaryTree<T> implements IBinaryTree<T>{
         }
 
         values.push(treeNode.value);
-        this.postOrderTraverse(values, treeNode.left);
-        this.postOrderTraverse(values, treeNode.right);
+        this.preOrderTraverse(values, treeNode.left);
+        this.preOrderTraverse(values, treeNode.right);
     }
 
     private postOrderTraverse: (values: T[], treeNode?: ITreeNode<T>) => void = (values, treeNode) => {
@@ -213,8 +213,7 @@ export class BinarySearchTree extends BinaryTree<number> implements IBinarySearc
     balance(): void {
         if (!this.isBalanced) {
             const values = this.traverse(TreeTraverse.InOrder);
-            console.log('inorder values', values);
-            let treeNode = this.balanceTree(values, 0, values.length - 2);
+            let treeNode = this.balanceTree(values, 0, values.length - 1);
             if (treeNode) {
                 this.setTree(treeNode);
             }
