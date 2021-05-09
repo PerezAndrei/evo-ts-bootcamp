@@ -1,7 +1,7 @@
 import { TreeTraverse } from "../enums";
 import { assertNever } from "../helpers";
 import { IBinaryTree, ITreeNode, IQueue, ITreeNodeHorDist, IBinarySearchTree } from "../interfaces";
-import { Queue } from './queue'
+import { Queue } from './Queue'
 
 export class TreeNode<T> implements ITreeNode<T> {
     value: T;
