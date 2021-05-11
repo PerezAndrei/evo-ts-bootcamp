@@ -15,14 +15,14 @@ export class TreeNode<T> implements ITreeNode<T> {
 }
 
 export class BinaryTree<T> implements IBinaryTree<T>{
-    treeNodeRoot;
+    treeNodeRoot: ITreeNode<T>;
 
     constructor(treeNode: ITreeNode<T>) {
-        this.treeNodeRoot = treeNode;
+        this.treeNodeRoot = { ...treeNode };
     }
 
     setTree(treeNode: ITreeNode<T>): this {
-        this.treeNodeRoot = treeNode;
+        this.treeNodeRoot = { ...treeNode };
         return this;
     }
 
