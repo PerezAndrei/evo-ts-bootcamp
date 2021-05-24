@@ -1,6 +1,5 @@
-export * from './Queue';
-export * from './Tree';
-export * from './MergeSort';
+export * from './TestService';
+export * from './MergeSortService';
 
 
 

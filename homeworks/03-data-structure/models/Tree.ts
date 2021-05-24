@@ -36,8 +36,8 @@ export class BinaryTree<T> implements IBinaryTree<T>{
         this.verticalTraverseByColumn(res, this.treeNodeRoot, columnOrder);
         return res;
     }
-
-    insert(value: T): void {
+   
+    insert(value: T): this {
         let treeNodeQueue: IQueue<TreeNode<T>> = new Queue<TreeNode<T>>();
         treeNodeQueue.enqueue(this.treeNodeRoot);
 
@@ -45,7 +45,8 @@ export class BinaryTree<T> implements IBinaryTree<T>{
             const treeNode = treeNodeQueue.dequeue();
 
             if (!treeNode || treeNode.value === value) {
-                return;
+                treeNode?.value === value && console.warn(`Value '${value}' already exists in the tree!`);
+                continue;
             }
 
             if (!treeNode.left) {
@@ -64,6 +65,8 @@ export class BinaryTree<T> implements IBinaryTree<T>{
                 treeNodeQueue.enqueue(treeNode.right);
             }
         }
+
+        return this;
     }
 
     traverse(traverse: TreeTraverse): T[] {
@@ -206,8 +209,9 @@ export class BinarySearchTree extends BinaryTree<number> implements IBinarySearc
         return this.exists(this.treeNodeRoot, value);
     }
 
-    insert(value: number): void {
+    insert(value: number): this {
         this.insertValue(this.treeNodeRoot, value);
+        return this;
     }
 
     balance(): void {

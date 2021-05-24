@@ -11,7 +11,14 @@ export interface IBinaryTree<T> {
     setTree(treeNode: ITreeNode<T>): this;
     getColumn(columnOrder: number): Array<T>;
     traverse(traverse: TreeTraverse): T[];
-    insert(value: T): void;
+    /**
+         * Inserts every value from left to right every level 
+         *
+         * @param value The value to be inserted
+         */
+         /*  
+    */
+    insert(value: T): this;
     print(): void;
 }
 

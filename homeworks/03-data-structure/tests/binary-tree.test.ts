@@ -1,4 +1,8 @@
-import { BinaryTree, TreeNode } from "../services";
+import { TreeTraverse } from "../enums";
+import { BinaryTree, TreeNode } from "../models";
+import { arrayEqualityByOrder } from '../services/TestService';
+
+expect.extend({ arrayEqualityByOrder });
 
 describe('binary tree test', () => {
     describe('test the constructor', () => {
@@ -25,7 +29,6 @@ describe('binary tree test', () => {
     describe('test the set tree function', () => {
         const value1 = 1;
         const value2 = 2;
-        const obj = {};
         let treeNode1 = new TreeNode(value1);
         let treeNode2 = new TreeNode(value2);
         let bt1 = new BinaryTree(treeNode1);
@@ -42,13 +45,46 @@ describe('binary tree test', () => {
     });
 
     describe.skip('test the insert function', () => {
-        it.todo('new value exists in a tree');
+        const value = 1;
+        const newValue = 2;
+        const treeNode = new TreeNode(value);
+        const bt = new BinaryTree(treeNode);
+
+        it('new value exists in a tree', () => {
+            expect(bt.treeNodeRoot.left).toBeNull();
+            expect(bt.treeNodeRoot.right).toBeNull();
+            bt.insert(newValue);
+            expect(bt.treeNodeRoot.left).not.toBeNull();
+            expect(bt.treeNodeRoot.left?.value).toBe(newValue);
+            bt.insert(newValue);
+        });
     });
 
     describe.skip('test the traverse function', () => {
-        it.todo('check an order if the traverse type is in-order');
-        it.todo('check an order if the traverse type is pre-order');
-        it.todo('check an order if the traverse type is post-order');
+        const inOrderRes = [1, 2, 5, 1, 6, 3, 7];
+        const preOrderRes = [1, 2, 4, 5, 3, 6, 7];
+        const postOrderRes = [4, 5, 2, 6, 7, 3, 1];
+        const value = 1;
+        const treeNode = new TreeNode(value);
+        const bt = new BinaryTree(treeNode);
+        bt.insert(2)
+            .insert(3)
+            .insert(4)
+            .insert(5)
+            .insert(6)
+            .insert(7);
+
+        it('check an order if the traverse type is in-order', () => {
+            expect(bt.traverse(TreeTraverse.InOrder)).arrayEqualityByOrder(inOrderRes);
+        });
+
+        it('check an order if the traverse type is pre-order', () => {
+            expect(bt.traverse(TreeTraverse.PreOrder)).arrayEqualityByOrder(preOrderRes);
+        });
+        
+        it('check an order if the traverse type is post-order', ()=>{
+            expect(bt.traverse(TreeTraverse.PostOrder)).arrayEqualityByOrder(postOrderRes);
+        });
     });
 
     describe.skip('test the getColumn function', () => {
