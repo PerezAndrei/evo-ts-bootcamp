@@ -2,6 +2,7 @@ import { TreeTraverse } from "../enums";
 import { BinaryTree, TreeNode } from "../models";
 import { arrayEqualityByOrder } from '../services/TestService';
 
+//As I realised a bit later, we can just use toEqual
 expect.extend({ arrayEqualityByOrder });
 
 describe('binary tree test', () => {
@@ -81,13 +82,41 @@ describe('binary tree test', () => {
         it('check an order if the traverse type is pre-order', () => {
             expect(bt.traverse(TreeTraverse.PreOrder)).arrayEqualityByOrder(preOrderRes);
         });
-        
-        it('check an order if the traverse type is post-order', ()=>{
+
+        it('check an order if the traverse type is post-order', () => {
             expect(bt.traverse(TreeTraverse.PostOrder)).arrayEqualityByOrder(postOrderRes);
         });
     });
 
-    describe.skip('test the getColumn function', () => {
+    describe('test the getColumn function', () => {
+        const value = 1;
+        const treeNode = new TreeNode(value);
+        const bt = new BinaryTree(treeNode);
+        bt.insert(2)
+            .insert(3)
+            .insert(4)
+            .insert(5)
+            .insert(6)
+            .insert(7);
 
+        it('method must return [4]', () => {
+            expect(bt.getColumn(-2)).toEqual([4]);
+        });
+
+        it('method must return [1, 5, 6]', () => {
+            expect(bt.getColumn(0)).toEqual([1, 5, 6]);
+        });
+
+        it('method must return [7]', () => {
+            expect(bt.getColumn(2)).toEqual([7]);
+        });
+
+        it('method throws error', () => {
+            expect(() => { bt.getColumn(10) }).toThrowError(Error);
+        });
+
+        it('method throws error with the message', () => {
+            expect(() => { bt.getColumn(10) }).toThrowError(new Error("Column order: '10' should be greater or equal: '-2' or less or equal: '2'"));
+        });
     });
 })
