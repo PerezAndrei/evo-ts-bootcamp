@@ -1,16 +1,18 @@
-//import { BinarySearchTree, BinaryTree, mergeSort, TreeNode } from "./services";
+// import { BinarySearchTree, BinaryTree, TreeNode } from "./models";
+
 
 // const treeNode = new TreeNode(1);
-// const tree = new BinaryTree(treeNode);
-// tree.insert(1);
-// tree.insert(1);
-// tree.insert(2);
-// tree.insert(3);
-// tree.insert(4);
-// tree.insert(5);
-// tree.insert(6);
-// tree.insert(7);
+// const tree = new BinarySearchTree(treeNode);
+// tree.insert(2)
+// .insert(3)
+// .insert(4)
+// .insert(5)
+// .insert(6)
+// .insert(7)
+// .insert(8)
 // tree.print();
+// tree.balance();
+// tree.print;
 
 // const bstreeNode = new TreeNode(1);
 // const bstree = new BinarySearchTree(bstreeNode);
