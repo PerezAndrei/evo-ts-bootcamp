@@ -1,7 +1,14 @@
+import { ITreeNode } from "../interfaces";
+import { BinarySearchTree, TreeNode } from "../models";
+
 describe.skip('binary search tree test', () => {
 
     describe.skip('test the constructor', () => {
-        it.todo('define tree node after constructor is called');
+        const treeNode = new TreeNode(1);
+        const bst = new BinarySearchTree(treeNode);
+        it('An initial tree node is defined after constructor is called', () => {
+            expect(bst.treeNodeRoot).toEqual(treeNode);
+        });
     });
 
     describe.skip('test the has function', () => {
@@ -15,5 +22,5 @@ describe.skip('binary search tree test', () => {
 
     describe.skip('test the balance function', () => {
         it.todo('a tree should be balanced');
-    });    
+    });
 })
